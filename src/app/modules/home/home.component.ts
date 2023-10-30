@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { UserService } from './../../services/user/user.service';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -27,7 +28,8 @@ export class HomeComponent {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private messageService: MessageService,
     ){}
 
   onSubmitLoginForm(): void {
@@ -38,10 +40,25 @@ export class HomeComponent {
           if (response) {
             this.cookieService.set('USER_INFO', response?.access);
             this.loginForm.reset();
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: `Bem vindo de volta ${response?.username}`,
+              life: 2000,
+
+            })
 
           }
         },
-        error: (err) => console.log(err)
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: `Error ao fazer Login ${err}`,
+            life: 2000,
+
+          })
+        }
       })
     }
 
