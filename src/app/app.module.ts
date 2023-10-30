@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './modules/home/home.component';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,7 @@ import { CookieService } from 'ngx-cookie-service';
     ToastModule,
     StyleClassModule,
   ],
-  providers: [CookieService],
+  providers: [CookieService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
